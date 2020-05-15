@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "neuroux"
+  },
+  "targets": {
+    "neuroux": {
+      "hosting": {
+        "neuroweb": [
+          "neuroux"
+        ]
+      }
+    }
+  }
+}
