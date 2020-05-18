@@ -1,0 +1,63 @@
+<div class="login-wrapper">
+	<nz-row>
+		<nz-col [nzSpan]="24" class="logo-container">
+			<div class="logo"></div>
+		</nz-col>
+	</nz-row>
+	<nz-row nzJustify="center" class="login-container">
+		<nz-col nzXs="24" nzSm="16" nzMd="10" nzLg="10" nzXl="10">
+			<nz-row>
+				<nz-col [nzSpan]="24">
+					<h2 nz-typography><b>Sign in to NeuroUX</b></h2>
+				</nz-col>
+			</nz-row>
+			<nz-row>
+				<nz-col [nzSpan]="24">
+					<form nz-form [formGroup]="loginForm">
+						<nz-form-item class="form-item-container">
+							<nz-form-control [nzSpan]="24" nzHasFeedback [nzErrorTip]="studyCodeError">
+								<input nz-input formControlName="studyCode" placeholder="Enter study code" />
+								<ng-template #studyCodeError let-control>
+									<ng-container *ngIf="control.hasError('required')">
+										Please input your study code!
+									</ng-container>
+								</ng-template>
+							</nz-form-control>
+						</nz-form-item>
+						<nz-form-item class="form-item-container">
+							<nz-form-control [nzSpan]="24" nzHasFeedback [nzErrorTip]="emailError">
+								<input nz-input [type]="'email'" formControlName="email" placeholder="Email" />
+								<ng-template #emailError let-control>
+									<ng-container *ngIf="control.hasError('required')">
+										Please input your email!
+									</ng-container>
+									<ng-container *ngIf="control.hasError('email')">
+										Invalid email format!
+									</ng-container>
+								</ng-template>
+							</nz-form-control>
+						</nz-form-item>
+						<nz-form-item class="form-item-container-last">
+							<nz-form-control [nzSpan]="24" nzHasFeedback [nzErrorTip]="passwordError">
+								<input nz-input [type]="'password'" formControlName="password" placeholder="Password" />
+								<ng-template #passwordError let-control>
+									<ng-container *ngIf="control.hasError('required')">
+										Please input your password!
+									</ng-container>
+								</ng-template>
+							</nz-form-control>
+						</nz-form-item>
+						<div class="text-forgot-password">
+							<span nz-typography nzType="secondary">Forgot password?</span>
+						</div>
+						<nz-row>
+							<nz-col [nzSpan]="24">
+								<button nz-button nzType="primary" class="login-button" [disabled]="!loginForm.valid">Sign In</button>
+							</nz-col>
+						</nz-row>
+					</form>
+				</nz-col>
+			</nz-row>
+		</nz-col>
+	</nz-row>
+</div>

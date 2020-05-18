@@ -17,8 +17,8 @@ export class CoreModule {
 		if (parentModule) {
 			throw new Error('CoreModule is already loaded. Import only in AppModule');
 		} else {
-      firebase.initializeApp(environment.firebaseConfig);
-      firebase.analytics();
-    }
+			firebase.initializeApp(environment.firebaseConfig);
+			firebase.analytics();
+		}
 	}
 }
