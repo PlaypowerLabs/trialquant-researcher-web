@@ -1,18 +1,18 @@
 <div class="login-wrapper">
-	<nz-row>
-		<nz-col [nzSpan]="24" class="logo-container">
+	<div nz-row>
+		<div nz-col [nzSpan]="24" class="logo-container">
 			<div class="logo"></div>
-		</nz-col>
-	</nz-row>
-	<nz-row nzJustify="center" class="login-container">
-		<nz-col nzXs="24" nzSm="16" nzMd="10" nzLg="10" nzXl="10">
-			<nz-row>
-				<nz-col [nzSpan]="24">
+		</div>
+	</div>
+	<div nz-row nzJustify="center" class="login-container">
+		<div nz-col nzXs="24" nzSm="16" nzMd="10" nzLg="10" nzXl="10">
+			<div nz-row>
+				<div nz-col [nzSpan]="24">
 					<h2 nz-typography><b>Sign in to NeuroUX</b></h2>
-				</nz-col>
-			</nz-row>
-			<nz-row>
-				<nz-col [nzSpan]="24">
+				</div>
+			</div>
+			<div nz-row>
+				<div nz-col [nzSpan]="24">
 					<form nz-form [formGroup]="loginForm">
 						<nz-form-item class="form-item-container">
 							<nz-form-control [nzSpan]="24" nzHasFeedback [nzErrorTip]="studyCodeError">
@@ -50,14 +50,14 @@
 						<div class="text-forgot-password">
 							<span nz-typography nzType="secondary">Forgot password?</span>
 						</div>
-						<nz-row>
-							<nz-col [nzSpan]="24">
+						<div nz-row>
+							<div nz-col [nzSpan]="24">
 								<button nz-button nzType="primary" class="login-button" [disabled]="!loginForm.valid">Sign In</button>
-							</nz-col>
-						</nz-row>
+							</div>
+						</div>
 					</form>
-				</nz-col>
-			</nz-row>
-		</nz-col>
-	</nz-row>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
