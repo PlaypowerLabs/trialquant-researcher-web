@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "target": "neuroux-web-app",
+      "target": "trialquant-researcher",
       "public": "dist",
       "ignore": [
         "firebase.json",

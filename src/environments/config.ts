@@ -1,12 +1,12 @@
 export const config = {
 	firebaseConfig: {
-		apiKey: 'AIzaSyButrKhrelp9u9pdsDpNUMxERCD9f4JxPs',
-		authDomain: 'neuroux.firebaseapp.com',
-		databaseURL: 'https://neuroux.firebaseio.com',
-		projectId: 'neuroux',
-		storageBucket: 'neuroux.appspot.com',
-		messagingSenderId: '174489076640',
-		appId: '1:174489076640:web:33225d6281b4547f351ac5',
-		measurementId: 'G-4YM80RB4YF',
+		apiKey: 'AIzaSyA1j-12t4xDfNM8tI7qY8Bn3gmersHlFpA',
+		authDomain: 'ppl-trialquant.firebaseapp.com',
+		databaseURL: 'https://ppl-trialquant.firebaseio.com',
+		projectId: 'ppl-trialquant',
+		storageBucket: 'ppl-trialquant.appspot.com',
+		messagingSenderId: '68527686868',
+		appId: '1:68527686868:web:fc5449a5f9e4c0cf52a741',
+		measurementId: 'G-446R5WMLYL',
 	},
 };

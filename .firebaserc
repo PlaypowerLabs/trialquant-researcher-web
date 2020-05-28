@@ -1,12 +1,12 @@
 {
   "projects": {
-    "default": "neuroux"
+    "default": "ppl-trialquant"
   },
   "targets": {
-    "neuroux": {
+    "ppl-trialquant": {
       "hosting": {
-        "neuroux-web-app": [
-          "neuroux"
+        "trialquant-researcher": [
+          "ppl-trialquant"
         ]
       }
     }
