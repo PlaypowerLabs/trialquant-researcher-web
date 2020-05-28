@@ -11,7 +11,7 @@
 				<nz-dropdown-menu #menu="nzDropdownMenu">
 					<ul nz-menu>
 						<li nz-menu-item>Edit Profile</li>
-						<li nz-menu-item>Logout</li>
+						<li nz-menu-item (click)="logout()">Logout</li>
 					</ul>
 				</nz-dropdown-menu>
 			</div>
@@ -21,8 +21,25 @@
 				<h1 nz-typography><strong>Dashboard</strong></h1>
 			</div>
 			<div nz-col [nzSpan]="13" class="dashboard-container">
-				<div nz-row [nzGutter]="[16, 16]">
-					<div nz-col [nzSpan]="12">
+				<div *ngIf="studies$ | async; let items; else: loading">
+					<div nz-row [nzGutter]="[16, 16]">
+						<div nz-col [nzSpan]="12" *ngFor="let item of items">
+							<div class="study-container">
+								<div class="study-info-container">
+									<span class="study-name">{{ item.study_name }}</span>
+									<div class="study-duration-container"><span>On-going</span><span> | 5 days left</span></div>
+								</div>
+								<div class="study-user-count">
+									<i nz-icon nzType="team" nzTheme="outline"></i>
+									<span class="sub-count">0</span><span class="total-count">/{{ item.patients.length }}</span>
+								</div>
+							</div>
+						</div>
+						<!-- <div *ngIf="items.length === 0">No results, try clearing filters</div> -->
+					</div>
+					
+
+					<!-- <div nz-col [nzSpan]="12">
 						<div class="study-container">
 							<div class="study-info-container">
 								<span class="study-name">Study Name</span>
@@ -57,8 +74,9 @@
 								<span class="sub-count">30</span><span class="total-count">/34</span>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
+				<ng-template #loading>Loading&hellip;</ng-template>
 			</div>
 		</div>
 	</div>

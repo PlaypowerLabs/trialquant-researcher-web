@@ -5,7 +5,7 @@
   "targets": {
     "neuroux": {
       "hosting": {
-        "neuroweb": [
+        "neuroux-web-app": [
           "neuroux"
         ]
       }

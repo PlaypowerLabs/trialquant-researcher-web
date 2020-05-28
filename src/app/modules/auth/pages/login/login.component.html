@@ -13,17 +13,7 @@
 			</div>
 			<div nz-row>
 				<div nz-col [nzSpan]="24">
-					<form nz-form [formGroup]="loginForm">
-						<nz-form-item class="form-item-container">
-							<nz-form-control [nzSpan]="24" nzHasFeedback [nzErrorTip]="studyCodeError">
-								<input nz-input formControlName="studyCode" placeholder="Enter study code" />
-								<ng-template #studyCodeError let-control>
-									<ng-container *ngIf="control.hasError('required')">
-										Please input your study code!
-									</ng-container>
-								</ng-template>
-							</nz-form-control>
-						</nz-form-item>
+					<form nz-form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
 						<nz-form-item class="form-item-container">
 							<nz-form-control [nzSpan]="24" nzHasFeedback [nzErrorTip]="emailError">
 								<input nz-input [type]="'email'" formControlName="email" placeholder="Email" />
