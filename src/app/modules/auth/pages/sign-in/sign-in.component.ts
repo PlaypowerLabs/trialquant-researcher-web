@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.less'],
+  selector: 'app-sign-in',
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.less']
 })
-export class LoginComponent implements OnInit {
-  loginForm = new FormGroup({
+export class SignInComponent implements OnInit {
+  signInForm = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, Validators.required),
   });
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  login(value): void {
+  doSignIn(value): void {
     this.authService.loginWithEmail(value.email, value.password);
   }
 }

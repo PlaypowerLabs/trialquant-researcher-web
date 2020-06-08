@@ -1,0 +1,49 @@
+<div nz-row nzJustify="center" class="sign-in-container">
+  <div nz-col nzXs="24" nzSm="16" nzMd="10" nzLg="10" nzXl="10">
+    <div nz-row>
+      <div nz-col [nzSpan]="24">
+        <h2 nz-typography class="sign-in-label">{{ 'Sign in to NeuroUX' }}</h2>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col [nzSpan]="24">
+        <form nz-form [formGroup]="signInForm" (ngSubmit)="doSignIn(signInForm.value)">
+          <nz-form-item class="form-item-container">
+            <nz-form-control [nzSpan]="24" nzHasFeedback [nzErrorTip]="emailError">
+              <input nz-input [type]="'email'" formControlName="email" placeholder="Email" />
+              <ng-template #emailError let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                  {{ 'Please input your email!' }}
+                </ng-container>
+                <ng-container *ngIf="control.hasError('email')">
+                  {{ 'Invalid email format!' }}
+                </ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="form-item-container-last">
+            <nz-form-control [nzSpan]="24" nzHasFeedback [nzErrorTip]="passwordError">
+              <input nz-input [type]="'password'" formControlName="password" placeholder="Password" />
+              <ng-template #passwordError let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                  {{ 'Please input your password!' }}
+                </ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+          <div class="text-forgot-password">
+            <span nz-typography nzType="secondary">{{ 'Forgot password?' }}</span>
+          </div>
+          <div nz-row>
+            <div nz-col [nzSpan]="24">
+              <button nz-button nzType="primary" class="sign-in-button" [disabled]="!signInForm.valid">Sign In</button>
+            </div>
+          </div>
+          <div class="sign-up-link-container">
+            <p>New to us? <a class="sign-up-link" [routerLink]="['/auth', 'sign-up']">Sign Up</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
