@@ -7,8 +7,6 @@ import { authReducer } from './store/auth.reducer';
 import { AuthService } from './auth.service';
 import { AuthDataService } from './auth.data.service';
 
-
-
 @NgModule({
   declarations: [],
   imports: [

@@ -1,3 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 
-const actionFetchStudies = createAction('[Studies]');
+const actionFetchStudies = createAction(
+  '[Studies]'
+);

@@ -6,26 +6,26 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthDataService {
-	constructor(private auth: AngularFireAuth) {}
+  constructor(private fireAuth: AngularFireAuth) { }
 
-	loginWithEmail(email: string, password: string): Observable<any> {
-		return from(this.loginWithEmailPromise(email, password)).pipe(
-			map((result) => {
-				return result;
-			})
-		);
-	}
+  loginWithEmail(email: string, password: string): Observable<any> {
+    return from(this.loginWithEmailPromise(email, password)).pipe(
+      map((result) => {
+        return result;
+      })
+    );
+  }
 
-	logout(): Observable<void> {
-		return from(this.auth.signOut());
-	}
+  logout(): Observable<void> {
+    return from(this.fireAuth.signOut());
+  }
 
-	async loginWithEmailPromise(email: string, password: string): Promise<any> {
-		try {
-			await this.auth.setPersistence(auth.Auth.Persistence.LOCAL);
-			return await this.auth.signInWithEmailAndPassword(email, password);
-		} catch (e) {
-			throw new Error(e);
-		}
-	}
+  async loginWithEmailPromise(email: string, password: string): Promise<any> {
+    try {
+      await this.fireAuth.setPersistence(auth.Auth.Persistence.LOCAL);
+      return await this.fireAuth.signInWithEmailAndPassword(email, password);
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
 }

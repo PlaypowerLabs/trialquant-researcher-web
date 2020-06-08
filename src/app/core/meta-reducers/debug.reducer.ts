@@ -5,10 +5,10 @@ import { AppState } from '../core.state';
 export function debug(
   reducer: ActionReducer<AppState>
 ): ActionReducer<AppState> {
-  return function(state, action) {
+  return (state, action) => {
     const newState = reducer(state, action);
     console.log(`[DEBUG] action: ${action.type}`, {
-      payload: (<any>action).payload,
+      payload: (action as any).payload,
       oldState: state,
       newState
     });

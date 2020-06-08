@@ -10,21 +10,21 @@ import { clearState } from './meta-reducers/clear-state.reducer';
 import { storeFreeze } from 'ngrx-store-freeze';
 
 export const reducers: ActionReducerMap<AppState> = {
-	router: routerReducer,
+  router: routerReducer,
 };
 
 export const metaReducers: MetaReducer<AppState>[] = [
-	// initStateFromSessionStorage,
-	clearState,
+  // initStateFromSessionStorage,
+  clearState,
 ];
 
 if (!environment.production) {
-	metaReducers.unshift(debug);
-	metaReducers.unshift(storeFreeze);
+  metaReducers.unshift(debug);
+  metaReducers.unshift(storeFreeze);
 }
 
 export const selectRouterState = createFeatureSelector<AppState, RouterReducerState<RouterStateUrl>>('router');
 
 export interface AppState {
-	router: RouterReducerState<RouterStateUrl>;
+  router: RouterReducerState<RouterStateUrl>;
 }

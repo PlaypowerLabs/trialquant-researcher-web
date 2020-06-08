@@ -9,17 +9,15 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 
-
-
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     FormsModule,
-		ReactiveFormsModule,
-		NzGridModule,
-		NzFormModule,
-		NzInputModule,
+    ReactiveFormsModule,
+    NzGridModule,
+    NzFormModule,
+    NzInputModule,
     NzButtonModule,
     NzTypographyModule,
     NzIconModule,
@@ -27,10 +25,10 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
   ],
   exports: [
     FormsModule,
-		ReactiveFormsModule,
-		NzGridModule,
-		NzFormModule,
-		NzInputModule,
+    ReactiveFormsModule,
+    NzGridModule,
+    NzFormModule,
+    NzInputModule,
     NzButtonModule,
     NzTypographyModule,
     NzIconModule,

@@ -7,7 +7,13 @@ import { LoginComponent } from './pages/login/login.component';
 import { SharedModule } from './../../shared/shared.module';
 
 @NgModule({
-	declarations: [LoginComponent],
-	imports: [CommonModule, AuthRoutingModule, SharedModule],
+  declarations: [
+    LoginComponent
+  ],
+  imports: [
+    CommonModule,
+    AuthRoutingModule,
+    SharedModule
+  ],
 })
-export class AuthModule {}
+export class AuthModule { }

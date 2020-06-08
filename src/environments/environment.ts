@@ -6,7 +6,9 @@ import { config } from './config';
 
 export const environment = {
   ...config,
-  production: false
+  appId: 'TrialQuant',
+  production: false,
+  test: false
 };
 
 /*
