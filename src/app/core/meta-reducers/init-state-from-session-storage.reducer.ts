@@ -1,6 +1,6 @@
 import { ActionReducer, INIT, UPDATE } from '@ngrx/store';
 
-import { SessionStorageService } from '../session-storage/session-storage.service';
+import { LocalStorageService } from '../local-storage/local-storage.service';
 import { AppState } from '../core.state';
 
 export function initStateFromSessionStorage(
@@ -9,7 +9,7 @@ export function initStateFromSessionStorage(
   return (state, action) => {
     const newState = reducer(state, action);
     if ([INIT.toString(), UPDATE.toString()].includes(action.type)) {
-      return { ...newState, ...SessionStorageService.loadAllState() };
+      return { ...newState, ...LocalStorageService.loadAllState() };
     }
     return newState;
   };

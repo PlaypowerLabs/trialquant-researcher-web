@@ -16,7 +16,7 @@ export interface User {
 export interface AuthState {
   isAuthenticated: boolean;
   isAuthenticating: boolean;
-  user: User;
+  userInfo: User;
   error: any;
 }
 

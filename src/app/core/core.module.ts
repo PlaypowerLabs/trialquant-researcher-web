@@ -27,7 +27,10 @@ import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
       }),
     AuthModule,
   ],
-  providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
+  providers: [{
+    provide: RouterStateSerializer,
+    useClass: CustomSerializer
+  }],
 })
 export class CoreModule {
   constructor(

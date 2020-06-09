@@ -5,7 +5,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
 import { AuthDataService } from '../auth.data.service';
 import * as AuthActions from './auth.actions';
-import { map, filter, switchMap, catchError, tap, withLatestFrom } from 'rxjs/operators';
+import { map, filter, switchMap, catchError, tap, withLatestFrom, mergeMap } from 'rxjs/operators';
 import { auth } from 'firebase/app';
 
 @Injectable()
@@ -17,28 +17,68 @@ export class AuthEffects {
     private router: Router
   ) { }
 
-  loginStart$ = createEffect(() =>
+  signInStart$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(AuthActions.actionLoginStart),
+      ofType(AuthActions.SignInStart),
       map((action) => action.payload),
       filter(({ email, password }) => !!email && !!password),
-      switchMap(({ email, password }) =>
-        this.authDataService.loginWithEmail(email, password).pipe(
-          map((user: any) => {
-            console.log('Effect', user);
-            return AuthActions.actionLoginSuccess({
+      switchMap(({ email, password }) => {
+        return this.authDataService.checkAuthUserEntryInResearcherCollection(email).pipe(
+          switchMap((_) => {
+            return this.authDataService.loginWithEmail(email, password).pipe(
+              map((data: any) => {
+                return AuthActions.SignInSuccess({
+                  payload: {
+                    userInfo: {
+                      name: data.user.displayName,
+                      email: data.user.email,
+                      emailVerified: data.user.emailVerified,
+                      photoUrl: data.user.photoURL,
+                      uid: data.user.uid,
+                    },
+                  },
+                });
+              }),
+              catchError((error: any) => [
+                AuthActions.SignInFailure({ payload: { error } })
+              ])
+            );
+          }),
+          catchError((error: any) => [
+            AuthActions.SignInFailure({ payload: { error } })
+          ])
+        );
+      }),
+      catchError((error: any) => [
+        AuthActions.SignInFailure({ payload: { error } })
+      ])
+    )
+  );
+
+
+  signUpStart$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.SignUpStart),
+      map((action) => action.payload),
+      filter(({ name, email, password }) => !!name && !!email && !!password),
+      switchMap(({ name, email, password }) =>
+        this.authDataService.signUpWithEmail(name, email, password).pipe(
+          map((data: any) => {
+            return AuthActions.SignUpSuccess({
               payload: {
-                user: {
-                  name: user.user.displayName,
-                  email: user.user.email,
-                  emailVerified: user.user.emailVerified,
-                  photoUrl: user.user.photoURL,
-                  uid: user.user.uid,
+                userInfo: {
+                  name: data.user.displayName,
+                  email: data.user.email,
+                  emailVerified: data.user.emailVerified,
+                  photoUrl: data.user.photoURL,
+                  uid: data.user.uid,
                 },
               },
             });
           }),
-          catchError((err: any) => [AuthActions.actionLoginFailure({ payload: { error: err.error } })])
+          catchError((err: any) => [
+            AuthActions.SignUpFailure({ payload: { error: err.error } })
+          ])
         )
       )
     )
@@ -46,35 +86,35 @@ export class AuthEffects {
 
   logoutStart$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(AuthActions.actionLogoutStart),
+      ofType(AuthActions.LogoutStart),
       switchMap(() =>
         this.authDataService.logout().pipe(
-          map(() => AuthActions.actionLogoutSuccess()),
-          catchError((err: any) => [AuthActions.actionSetAuthErrors({ payload: { error: err.error } })])
+          map(() => AuthActions.LogoutSuccess()),
+          catchError((err: any) => [
+            AuthActions.SetAuthErrors({ payload: { error: err.error } })
+          ])
         )
       )
     )
   );
 
-  navigationOnLoginSuccess$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(AuthActions.actionLoginSuccess),
-        tap(() => {
-          this.router.navigate(['/dashboard']);
-        })
-      ),
+  navigationOnSignInSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.SignInSuccess, AuthActions.SignUpSuccess),
+      tap(() => {
+        this.router.navigate(['/dashboard']);
+      })
+    ),
     { dispatch: false }
   );
 
-  navigationOnLogOutSuccess$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(AuthActions.actionLogoutSuccess),
-        tap(() => {
-          this.router.navigate(['/auth']);
-        })
-      ),
+  navigationOnLogOutSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.LogoutSuccess),
+      tap(() => {
+        this.router.navigate(['/auth']);
+      })
+    ),
     { dispatch: false }
   );
 
