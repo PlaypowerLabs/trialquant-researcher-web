@@ -5,10 +5,15 @@ export const selectAuthState = createFeatureSelector<State, AuthState>('auth');
 
 export const selectIsAuthenticating = createSelector(
   selectAuthState,
-  state => state.isAuthenticating
+  state => state && state.isAuthenticating
 );
 
 export const selectUserInfo = createSelector(
   selectAuthState,
-  state => state.userInfo
+  state => state && state.userInfo
+);
+
+export const selectUserId = createSelector(
+  selectUserInfo,
+  userInfo => userInfo && userInfo.uid
 );

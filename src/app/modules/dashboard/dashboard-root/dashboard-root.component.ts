@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { StudyService } from 'src/app/core/study/study.service';
 
 @Component({
   selector: 'app-dashboard-root',
@@ -13,30 +14,16 @@ import { Router } from '@angular/router';
 })
 export class DashboardRootComponent implements OnInit, OnDestroy {
 
-  studies$: Observable<any[]>;
-  userSub: Subscription;
-
   constructor(
     private authService: AuthService,
-    private auth: AngularFireAuth,
-    private afs: AngularFirestore,
+    public studyService: StudyService,
     private router: Router,
   ) { }
 
   currentUser$ = this.authService.currentUser$;
+  allStudies$ = this.studyService.allStudies$;
 
-  ngOnInit(): void {
-    this.userSub = this.auth.user.subscribe(user => {
-      if (user) {
-        const uid = user.uid;
-        // this.studies$ = this.afs.collection('studies', ref => ref.where('created_by', '==', uid)).valueChanges();
-        this.studies$ = this.afs.collection('studies').valueChanges();
-      }
-    });
-
-    // this.studies$.subscribe(data => {
-    //   console.log(data);
-    // });
+  ngOnInit() {
   }
 
   navigateToStudyPage(studyId: string) {
@@ -44,11 +31,9 @@ export class DashboardRootComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.userSub.unsubscribe();
   }
 
   logout(): void {
     this.authService.logout();
   }
-
 }
