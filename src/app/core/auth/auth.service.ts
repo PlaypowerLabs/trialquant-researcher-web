@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { AppState } from '../core.state';
 import * as AuthActions from './store/auth.actions';
+import { selectUserInfo } from './store/auth.selectors';
 
 @Injectable()
 export class AuthService {
   constructor(
     private store$: Store<AppState>
   ) { }
+
+  currentUser$ = this.store$.pipe(select(selectUserInfo));
 
   loginWithEmail(email: string, password: string): void {
     this.store$.dispatch(AuthActions.SignInStart({ payload: { email, password } }));

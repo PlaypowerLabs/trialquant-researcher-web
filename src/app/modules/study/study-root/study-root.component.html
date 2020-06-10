@@ -1,0 +1,39 @@
+<div class="study-page-container">
+  <div nz-row>
+    <div nz-col [nzSpan]="24" class="back-link-container">
+      <button class="back-to-home-button" (click)="navigateToHomepage()">
+        <i nz-icon class="back-icon" nzType="arrow-left" nzTheme="outline"></i>
+        <span class="back-icon-label">{{ 'Back to homepage' }}</span>
+      </button>
+    </div>
+    <div nz-col [nzSpan]="24" class="study-header-container">
+      <div nz-row>
+        <div nz-col [nzSpan]="24" class="study-name-container center-align-flex">
+          <span nz-typography class="study-name-label">{{ 'Selected Study Name' }}</span>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col [nzSpan]="24" class="study-status-container center-align-flex">
+          <span class="study-status-label">{{ 'On-going' }}</span>
+          <span class="study-status-label-seperator">{{ ' | ' }}</span>
+          <span class="study-remaining-time-label">{{ '19 days left' }}</span>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col [nzSpan]="24" class="export-button-container center-align-flex">
+          <button class="export-csv-button flex-button" (click)="exportCSV()">
+            <i nz-icon class="icon" nzType="export" nzTheme="outline"></i>
+            <span class="export-csv-label">{{ 'Export CSV' }}</span>
+          </button>
+          <button class="export-protocol-button flex-button" (click)="exportStudyProtocol()">
+            <i nz-icon class="icon" nzType="eye" nzTheme="outline"></i>
+            <span class="export-protocol-label">{{ 'Export Study Protocol' }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div nz-row class="study-data-container">
+
+    </div>
+  </div>
+</div>

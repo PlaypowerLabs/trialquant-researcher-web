@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { auth } from 'firebase/app';
 import { map, catchError, first } from 'rxjs/operators';
+import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class AuthDataService {
@@ -62,13 +63,15 @@ export class AuthDataService {
   ): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
-        const userData = await this.fireAuth.createUserWithEmailAndPassword(email, password);
+        const userData = await (await this.fireAuth.createUserWithEmailAndPassword(email, password));
+        await (await this.fireAuth.currentUser).updateProfile({ displayName: fullName });
         const userDoc = {
+          id: userData.user.uid,
           name: fullName,
           email,
           password
         };
-        await this.firestore.collection('researchers').add(userDoc);
+        await this.firestore.collection('researchers').doc(userDoc.id).set(userDoc);
         resolve(userData);
       } catch (error) {
         reject(error);

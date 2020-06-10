@@ -10,6 +10,7 @@ import { CustomSerializer } from './router/custom-serializer';
 import { AuthModule } from './auth/auth.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
+import { StudyModule } from './study/study.module';
 
 @NgModule({
   declarations: [],
@@ -26,6 +27,7 @@ import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
         name: 'NeuroUX',
       }),
     AuthModule,
+    StudyModule,
   ],
   providers: [{
     provide: RouterStateSerializer,
