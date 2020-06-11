@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../core.state';
-import { selectAllStudy } from './store/study.selectors';
+import { selectAllStudy, selectSelectedStudyDoc } from './store/study.selectors';
 import * as StudyActions from './store/study.actions';
 
 @Injectable()
@@ -11,6 +11,7 @@ export class StudyService {
   ) { }
 
   allStudies$ = this.store$.pipe(select(selectAllStudy));
+  selectedStudyDoc$ = this.store$.pipe(select(selectSelectedStudyDoc));
 
   setSelectedStudyId(studyId) {
     this.store$.dispatch(StudyActions.SetSelectedStudyId({ payload: { studyId } }));

@@ -5,6 +5,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
@@ -21,7 +22,8 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
     NzButtonModule,
     NzTypographyModule,
     NzIconModule,
-    NzDropDownModule
+    NzDropDownModule,
+    NzTableModule,
   ],
   exports: [
     FormsModule,
@@ -32,7 +34,8 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
     NzButtonModule,
     NzTypographyModule,
     NzIconModule,
-    NzDropDownModule
+    NzDropDownModule,
+    NzTableModule
   ]
 })
 export class SharedModule { }

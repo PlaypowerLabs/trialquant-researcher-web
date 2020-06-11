@@ -4,6 +4,30 @@
   min-height: 70px;
 }
 
+.study-page-container {
+  height: 100%;
+}
+
+.study-data-container {
+  min-height: 65%;
+
+  .study-progress-table {
+    margin: 1em;
+  }
+}
+
+.colored-cell-green {
+  background-color: var(--light-green);
+}
+
+.colored-cell-yellow {
+  background-color: var(--light-yellow);
+}
+
+.colored-cell-red {
+  background-color: var(--light-red);
+}
+
 .study-header-container {
   min-height: 200px;
   height: 200px;
@@ -68,4 +92,16 @@
   .export-protocol-button {
 
   }
+}
+
+::ng-deep .study-data-container .ant-table-body table tbody tr:hover td.colored-cell-green {
+  background-color: var(--light-green);
+}
+
+::ng-deep .study-data-container .ant-table-body table tbody tr:hover td.colored-cell-yellow {
+  background-color: var(--light-yellow);
+}
+
+::ng-deep .study-data-container .ant-table-body table tbody tr:hover td.colored-cell-red {
+  background-color: var(--light-red);
 }

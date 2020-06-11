@@ -24,3 +24,11 @@ export const selectStudyIdFromRouterState = createSelector(
   selectRouterState,
   router => router && router.state.params.studyId
 );
+
+export const selectSelectedStudyDoc = createSelector(
+  selectAllStudy,
+  selectSelectedStudyId,
+  (allStudy, selectedStudyId) => {
+    return allStudy.find(study => study.id === selectedStudyId);
+  }
+);

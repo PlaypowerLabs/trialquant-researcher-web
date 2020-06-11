@@ -12,6 +12,9 @@ export const selectAllStudyProgress = createSelector(
 export const selectMaximumSessionsCount = createSelector(
   selectAllStudyProgress,
   (studyProgressArray) => {
-    return Object.keys(studyProgressArray[0].activityProgress).length;
+    if (studyProgressArray && studyProgressArray.length > 0) {
+      return Object.keys(studyProgressArray[0].activityProgress).length;
+    }
+    return 0;
   }
 );
