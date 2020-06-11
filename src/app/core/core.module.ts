@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { StudyModule } from './study/study.module';
+import { StudyProgressModule } from './studyProgress/studyProgress.module';
 
 @NgModule({
   declarations: [],
@@ -28,6 +29,7 @@ import { StudyModule } from './study/study.module';
       }),
     AuthModule,
     StudyModule,
+    StudyProgressModule,
   ],
   providers: [{
     provide: RouterStateSerializer,

@@ -37,14 +37,6 @@ export interface Study {
   createTime: string;
 }
 
-export interface StudyProgress {
-  id: string;
-  participantId: string;
-  studyId: string;
-  protocolId: string;
-  activityProgress: object;
-}
-
 export enum StudyStatus {
   ENABLED = 'enabled',
   PAUSED = 'paused',
