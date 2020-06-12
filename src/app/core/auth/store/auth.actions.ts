@@ -16,6 +16,11 @@ export const SignUpFailure = createAction(
   props<{ payload: { error: any } }>()
 );
 
+export const ClearError = createAction(
+  '[Auth] Clear Error',
+  props<{ payload: { error: any } }>()
+);
+
 export const SignInStart = createAction(
   '[Auth] SignIn Start',
   props<{ payload: { email: string; password: string } }>()

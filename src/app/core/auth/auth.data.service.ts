@@ -48,7 +48,7 @@ export class AuthDataService {
       await this.fireAuth.setPersistence(auth.Auth.Persistence.LOCAL);
       return await this.fireAuth.signInWithEmailAndPassword(email, password);
     } catch (e) {
-      throw new Error(e);
+      throw new Error(e.message);
     }
   }
 
@@ -81,7 +81,7 @@ export class AuthDataService {
       .pipe(
         map(querySnapshot => {
           if (querySnapshot.docs.length === 0) {
-            throw new Error('User entry not found in researchers collection');
+            throw new Error('Above EmailId not registered with NeuroUX. Please Sign Up.');
           }
           return querySnapshot;
         }),

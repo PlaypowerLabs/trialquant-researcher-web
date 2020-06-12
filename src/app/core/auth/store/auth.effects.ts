@@ -52,7 +52,7 @@ export class AuthEffects {
       catchError((error: any) => [
         AuthActions.SignInFailure({ payload: { error } })
       ])
-    )
+    ),
   );
 
 
@@ -76,11 +76,14 @@ export class AuthEffects {
               },
             });
           }),
-          catchError((err: any) => [
-            AuthActions.SignUpFailure({ payload: { error: err.error } })
+          catchError((error: any) => [
+            AuthActions.SignUpFailure({ payload: { error } })
           ])
         )
-      )
+      ),
+      catchError((error: any) => [
+        AuthActions.SignUpFailure({ payload: { error } })
+      ])
     )
   );
 

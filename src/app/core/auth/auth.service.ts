@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../core.state';
 import * as AuthActions from './store/auth.actions';
-import { selectUserInfo } from './store/auth.selectors';
+import { selectUserInfo, selectIsAuthenticating, selectAuthError } from './store/auth.selectors';
 
 @Injectable()
 export class AuthService {
@@ -11,6 +11,8 @@ export class AuthService {
   ) { }
 
   currentUser$ = this.store$.pipe(select(selectUserInfo));
+  isAuthenticating$ = this.store$.pipe(select(selectIsAuthenticating));
+  authError$ = this.store$.pipe(select(selectAuthError));
 
   loginWithEmail(email: string, password: string): void {
     this.store$.dispatch(AuthActions.SignInStart({ payload: { email, password } }));
@@ -22,5 +24,9 @@ export class AuthService {
 
   logout(): void {
     this.store$.dispatch(AuthActions.LogoutStart());
+  }
+
+  resetAuthError() {
+    this.store$.dispatch(AuthActions.ClearError({ payload: { error: null } }));
   }
 }

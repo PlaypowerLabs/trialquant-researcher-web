@@ -44,9 +44,12 @@ const reducer = createReducer(
   on(
     AuthActions.SignInFailure,
     AuthActions.SignUpFailure,
+    AuthActions.ClearError,
     (state, { payload: { error } }) => {
       return {
         ...state,
+        isAuthenticated: false,
+        isAuthenticating: false,
         error
       };
     }
