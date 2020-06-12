@@ -34,37 +34,40 @@
     </div>
   </div>
   <div nz-row class="study-data-container">
-    <div nz-col [nzSpan]="24" *ngIf="(studyProgress$ | async) as studyProgressData">
-      <nz-table #studyProgressTable
-        nzBordered
-        class="study-progress-table"
-        [nzData]="studyProgressData"
-        [nzShowPagination]="false"
-        [nzFrontPagination]="false"
-        *ngIf="studyProgressData && studyProgressData?.length > 0"
-        [nzScroll]="{ x: '1150px', y: '400px' }"
-        >
-        <thead>
-          <tr>
-            <th nzWidth="300px" nzLeft>{{ 'UserId' }}</th>
-            <th nzWidth="130px" *ngFor="let index of sessionIndexArray$ | async">{{ 'Session ' + index }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of studyProgressTable.data">
-            <td nzWidth="300px" nzLeft>{{ data.participantId }}</td>
-            <td
-              nzWidth="130px"
-              *ngFor="let activity of data?.activityProgress"
-              [ngClass]="{
+    <div nz-col [nzSpan]="24">
+      <div *ngIf="!(isLoadingStudyProgress$ | async) else: loadingTemplate">
+        <nz-table
+          #studyProgressTable
+          nzBordered
+          class="study-progress-table"
+          [nzData]="studyProgressData"
+          [nzShowPagination]="false"
+          [nzFrontPagination]="false"
+          *ngIf="(studyProgress$ | async) as studyProgressData"
+          [nzScroll]="{ x: '1150px', y: '400px' }">
+          <thead>
+            <tr>
+              <th nzWidth="300px" nzLeft>{{ 'UserId' }}</th>
+              <th nzWidth="130px" *ngFor="let index of sessionIndexArray$ | async">{{ 'Session ' + index }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of studyProgressTable.data">
+              <td nzWidth="300px" nzLeft>{{ data.participantId }}</td>
+              <td nzWidth="130px" *ngFor="let activity of data?.activityProgress" [ngClass]="{
                 'colored-cell-green': (activity.isCompleted && activity.isAttempted),
                 'colored-cell-yellow': (!activity.isCompleted && activity.isAttempted),
                 'colored-cell-red': (!activity.isCompleted && !activity.isAttempted)
-              }"
-              >{{ '' }}</td>
-          </tr>
-        </tbody>
-      </nz-table>
+              }">{{ '' }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+      <ng-template #loadingTemplate>
+        <div class="spin-container">
+          <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

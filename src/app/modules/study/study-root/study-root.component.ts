@@ -20,6 +20,7 @@ export class StudyRootComponent implements OnInit, OnDestroy {
 
   studyProgress$ = this.studyProgressService.allStudiesProgress$;
   sessionIndexArray$ = this.studyProgressService.sessionIndexArray$;
+  isLoadingStudyProgress$ = this.studyProgressService.isLoadingStudyProgress$;
   selectedStudyDoc$ = this.studyService.selectedStudyDoc$;
 
   ngOnInit(): void {

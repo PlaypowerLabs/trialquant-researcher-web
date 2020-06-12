@@ -5,19 +5,24 @@ import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 export const adapter: EntityAdapter<StudyProgress> = createEntityAdapter<StudyProgress>();
 export const initialState: StudyProgressState = adapter.getInitialState({
+  isLoadingStudyProgress: false
 });
 
 const reducer = createReducer(
   initialState,
   on(
-    StudyProgressActions.FetchStudyProgress,
-    (state) => ({ ...state })
+    StudyProgressActions.LoadStudyProgressStart,
+    (state) => ({ ...state, isLoadingStudyProgress: true })
   ),
   on(
-    StudyProgressActions.LoadStudyProgress,
+    StudyProgressActions.LoadStudyProgressSuccess,
     (state, { payload: { studyProgressArray } }) => {
-      return adapter.addAll(studyProgressArray, { ...state });
+      return adapter.addAll(studyProgressArray, { ...state, isLoadingStudyProgress: false });
     }
+  ),
+  on(
+    StudyProgressActions.LoadStudyProgressFailed,
+    (state) => ({ ...state, isLoadingStudyProgress: false })
   ),
   on(
     StudyProgressActions.ClearStudyProgress,

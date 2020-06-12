@@ -22,6 +22,7 @@ export class DashboardRootComponent implements OnInit, OnDestroy {
 
   currentUser$ = this.authService.currentUser$;
   allStudies$ = this.studyService.allStudies$;
+  isLoadingStudies$ = this.studyService.isLoadingStudies$;
 
   ngOnInit() {
   }

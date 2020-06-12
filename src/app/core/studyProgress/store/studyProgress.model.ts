@@ -19,7 +19,7 @@ export interface ActivityProgress {
 }
 
 export interface StudyProgressState extends EntityState<StudyProgress> {
-
+  isLoadingStudyProgress: boolean;
 }
 
 export interface State extends AppState {

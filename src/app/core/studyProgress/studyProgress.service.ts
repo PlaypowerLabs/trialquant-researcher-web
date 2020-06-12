@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../core.state';
-import { selectAllStudyProgress, selectMaximumSessionsCount } from './store/studyProgress.selectors';
+import { selectAllStudyProgress, selectMaximumSessionsCount, selectIsLoadingStudyProgress } from './store/studyProgress.selectors';
 import * as StudentProgressActions from './store/studyProgress.actions';
 import { map } from 'rxjs/operators';
 
@@ -46,6 +46,7 @@ export class StudyProgressService {
       return modifiedStudyProgressArray;
     })
   );
+
   sessionIndexArray$ = this.store$.pipe(select(selectMaximumSessionsCount)).pipe(
     map((maxIndex) => {
       const sessionIndex = [];
@@ -55,6 +56,8 @@ export class StudyProgressService {
       return sessionIndex;
     })
   );
+
+  isLoadingStudyProgress$ = this.store$.pipe(select(selectIsLoadingStudyProgress));
 
   clearStudyProgressState() {
     this.store$.dispatch(StudentProgressActions.ClearStudyProgress());

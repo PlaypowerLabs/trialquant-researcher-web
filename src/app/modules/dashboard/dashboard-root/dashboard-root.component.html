@@ -21,8 +21,8 @@
         <h1 nz-typography><strong>Dashboard</strong></h1>
       </div>
       <div nz-col [nzSpan]="18" class="dashboard-container">
-        <div *ngIf="(allStudies$ | async) as studies; else: loading">
-          <div nz-row [nzGutter]="[16, 16]">
+        <div *ngIf="!(isLoadingStudies$ | async); else: loadingTemplate">
+          <div nz-row [nzGutter]="[16, 16]" *ngIf="(allStudies$ | async) as studies;">
             <div nz-col [nzSpan]="12" *ngFor="let study of studies">
               <div class="study-container" (click)="navigateToStudyPage(study.id)">
                 <div class="study-info-container">
@@ -36,13 +36,16 @@
                 <div class="study-user-count">
                   <i nz-icon nzType="team" nzTheme="outline"></i>
                   <!-- TODO: Update this study completed count with actual count -->
-                  <span class="sub-count">{{ study.completedCount || 0 }}</span><span class="total-count">/{{ study.participantsInfo.length }}</span>
+                  <span class="sub-count">{{ study.completedCount || 0 }}</span><span
+                    class="total-count">/{{ study.participantsInfo.length }}</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <ng-template #loading>Loading&hellip;</ng-template>
+        <ng-template #loadingTemplate>
+          <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+        </ng-template>
       </div>
     </div>
   </div>

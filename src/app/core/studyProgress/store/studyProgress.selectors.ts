@@ -9,6 +9,11 @@ export const selectAllStudyProgress = createSelector(
   selectAll
 );
 
+export const selectIsLoadingStudyProgress = createSelector(
+  selectStudyProgressState,
+  state => state.isLoadingStudyProgress
+);
+
 export const selectMaximumSessionsCount = createSelector(
   selectAllStudyProgress,
   (studyProgressArray) => {

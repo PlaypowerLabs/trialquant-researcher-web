@@ -20,6 +20,11 @@ export const selectSelectedStudyId = createSelector(
   state => state.selectedStudyId
 );
 
+export const selectIsLoadingStudies = createSelector(
+  selectStudyState,
+  state => state.isLoadingStudies
+);
+
 export const selectStudyIdFromRouterState = createSelector(
   selectRouterState,
   router => router && router.state.params.studyId

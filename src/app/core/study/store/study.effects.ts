@@ -25,6 +25,7 @@ export class StudyEffects {
   fetchStudy$ = this.store$.pipe(
     select(selectUserId),
     filter(userId => !!userId),
+    tap(() => this.store$.dispatch(StudyActions.LoadStudiesStart())),
     switchMap((researcherId) => {
       return this.studyDataService.fetchProtocolsIds(researcherId).pipe(
         filter(protocolIds => !!protocolIds && protocolIds.length > 0),
@@ -32,10 +33,20 @@ export class StudyEffects {
           return this.studyDataService.fetchStudies(protocolIds).pipe(
             switchMap((studyArray: Study[]) => {
               return [
-                StudyActions.LoadStudies({ payload: { studyArray } })
+                StudyActions.LoadStudiesSuccess({ payload: { studyArray } })
+              ];
+            }),
+            catchError((error) => {
+              return [
+                StudyActions.LoadStudiesFailed()
               ];
             })
           );
+        }),
+        catchError((error) => {
+          return [
+            StudyActions.LoadStudiesFailed()
+          ];
         })
       );
     })

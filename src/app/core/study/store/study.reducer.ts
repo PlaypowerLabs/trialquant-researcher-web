@@ -5,7 +5,7 @@ import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 export const adapter: EntityAdapter<Study> = createEntityAdapter<Study>();
 export const initialState: StudyState = adapter.getInitialState({
-  isLoading: false,
+  isLoadingStudies: false,
   selectedStudyId: null
 });
 
@@ -16,9 +16,21 @@ const reducer = createReducer(
     (state) => ({ ...state })
   ),
   on(
-    StudyActions.LoadStudies,
+    StudyActions.LoadStudiesSuccess,
     (state, { payload: { studyArray } }) => {
-      return adapter.addAll(studyArray, { ...state });
+      return adapter.addAll(studyArray, { ...state, isLoadingStudies: false });
+    }
+  ),
+  on(
+    StudyActions.LoadStudiesStart,
+    (state) => {
+      return { ...state, isLoadingStudies: true };
+    }
+  ),
+  on(
+    StudyActions.LoadStudiesFailed,
+    (state) => {
+      return { ...state, isLoadingStudies: false };
     }
   ),
   on(

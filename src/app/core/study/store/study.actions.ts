@@ -5,9 +5,17 @@ export const FetchStudies = createAction(
   '[Study] Fetch Studies'
 );
 
-export const LoadStudies = createAction(
-  '[Study] LoadStudies Studies',
+export const LoadStudiesStart = createAction(
+  '[Study] Load Studies Start',
+);
+
+export const LoadStudiesSuccess = createAction(
+  '[Study] LoadS Studies Success',
   props<{ payload: { studyArray: Study[] } }>()
+);
+
+export const LoadStudiesFailed = createAction(
+  '[Study] Load Studies Failed',
 );
 
 export const SetSelectedStudyId = createAction(

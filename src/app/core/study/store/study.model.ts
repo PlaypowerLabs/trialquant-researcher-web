@@ -45,7 +45,7 @@ export enum StudyStatus {
 }
 
 export interface StudyState extends EntityState<Study> {
-  isLoading: boolean;
+  isLoadingStudies: boolean;
   selectedStudyId: string;
 }
 

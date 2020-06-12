@@ -9,6 +9,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @NgModule({
   declarations: [],
@@ -24,6 +25,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
     NzIconModule,
     NzDropDownModule,
     NzTableModule,
+    NzSpinModule,
   ],
   exports: [
     FormsModule,
@@ -35,7 +37,8 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
     NzTypographyModule,
     NzIconModule,
     NzDropDownModule,
-    NzTableModule
+    NzTableModule,
+    NzSpinModule,
   ]
 })
 export class SharedModule { }
