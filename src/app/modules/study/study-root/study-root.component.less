@@ -74,11 +74,12 @@
     cursor: pointer;
     font-size: 1rem;
     outline: none;
-    color: var(--purple);
+    // color: var(--purple);
     padding: 0.4em 1em;
     border: none;
-    margin-right: 0.5rem;
+    padding-right: 0.5rem;
     background: transparent;
+    border-radius: 4px;
   }
 
   .icon {
@@ -86,11 +87,23 @@
   }
 
   .export-csv-button {
-
+    color: var(--purple);
   }
 
   .export-protocol-button {
+    color: var(--purple);
+  }
 
+  .export-csv-button:hover,
+  .export-csv-button:active {
+    background-color: var(--opaque-purple);
+    color: var(--purple);
+  }
+
+  .export-protocol-button:hover,
+  .export-protocol-button:active {
+    background-color: var(--opaque-purple);
+    color: var(--purple);
   }
 }
 
