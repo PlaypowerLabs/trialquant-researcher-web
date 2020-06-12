@@ -11,6 +11,7 @@ export interface Protocol {
   id: string;
   name: string;
   createdBy: string;
+  protocolCSVRef: string;
   protocolData: ProtocolMetadata[];
   createTime: string;
 }

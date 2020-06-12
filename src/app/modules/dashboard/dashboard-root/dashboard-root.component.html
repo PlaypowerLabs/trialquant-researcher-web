@@ -27,15 +27,16 @@
               <div class="study-container" (click)="navigateToStudyPage(study.id)">
                 <div class="study-info-container">
                   <span class="study-name">{{ study.name }}</span>
-                  <div class="study-duration-container">
+                  <!-- <div class="study-duration-container">
                     <span>{{ 'On-going' }}</span>
                     <span>{{ '|' }}</span>
                     <span>{{ '5 days left' }}</span>
-                  </div>
+                  </div> -->
                 </div>
                 <div class="study-user-count">
                   <i nz-icon nzType="team" nzTheme="outline"></i>
-                  <span class="sub-count">0</span><span class="total-count">/{{ study.participantsInfo.length }}</span>
+                  <!-- TODO: Update this study completed count with actual count -->
+                  <span class="sub-count">{{ study.completedCount || 0 }}</span><span class="total-count">/{{ study.participantsInfo.length }}</span>
                 </div>
               </div>
             </div>

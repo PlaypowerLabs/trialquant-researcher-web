@@ -37,11 +37,11 @@ export class StudyRootComponent implements OnInit, OnDestroy {
   }
 
   exportCSV() {
-
+    this.studyService.exportCSV();
   }
 
   exportStudyProtocol() {
-
+    this.studyService.exportProtocolCSV();
   }
 
   ngOnDestroy() {

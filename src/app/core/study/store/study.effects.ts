@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../core.state';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, createEffect, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
 import { StudyDataService } from '../study.data.service';
 import { selectUserId } from '../../auth/store/auth.selectors';
-import { filter, switchMap, map, tap } from 'rxjs/operators';
+import { filter, switchMap, map, tap, withLatestFrom, catchError } from 'rxjs/operators';
 import { Study } from './study.model';
 import * as StudyActions from './study.actions';
-import { selectStudyIdFromRouterState } from './study.selectors';
+import { selectStudyIdFromRouterState, selectSelectedStudyDoc } from './study.selectors';
+import { saveAs } from 'file-saver';
 
 @Injectable()
 export class StudyEffects {
@@ -49,4 +50,68 @@ export class StudyEffects {
     }),
   );
 
+  // Effect to download study protocol csv file
+  exportStudyProtocolCSV$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(StudyActions.ExportStudyProtocolStart),
+      withLatestFrom(this.store$.pipe(select(selectSelectedStudyDoc))),
+      switchMap(([, studyDoc]) => {
+        return this.studyDataService.getProtocolDocByID(studyDoc.protocolId).pipe(
+          switchMap((protocolDocData) => {
+            console.log('protocolDoc:', protocolDocData.data());
+            const protocolDoc = protocolDocData.data();
+            return this.studyDataService.getProtocolCSVDownloadURL(protocolDoc.protocolCSVRef).pipe(
+              switchMap((url) => {
+                saveAs(url, 'protocol_' + protocolDoc.id);
+                return [
+                  StudyActions.ExportStudyProtocolSuccess()
+                ];
+              }),
+              catchError((error) => {
+                return [
+                  StudyActions.ExportStudyProtocolFailed(error.message)
+                ];
+              })
+            );
+          }),
+          catchError((error) => {
+            return [
+              StudyActions.ExportStudyProtocolFailed(error.message)
+            ];
+          })
+        );
+      }),
+      catchError((error) => {
+        return [
+          StudyActions.ExportStudyProtocolFailed(error.message)
+        ];
+      })
+    )
+  );
+
+  // Effect to trial logs CSV
+  exportCSV$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(StudyActions.ExportStudyStart),
+      withLatestFrom(this.store$.pipe(select(selectSelectedStudyDoc))),
+      switchMap(([, studyDoc]) => {
+        return this.studyDataService.downloadStudyTrialLogsCSV(studyDoc.id).pipe(
+          switchMap((result) => {
+            console.log('Result :', result);
+            return [StudyActions.ExportStudySuccess()];
+          }),
+          catchError((error) => {
+            return [
+              StudyActions.ExportStudyFailed(error.message)
+            ];
+          })
+        );
+      }),
+      catchError((error) => {
+        return [
+          StudyActions.ExportStudyFailed(error.message)
+        ];
+      })
+    )
+  );
 }

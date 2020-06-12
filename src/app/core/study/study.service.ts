@@ -16,4 +16,12 @@ export class StudyService {
   setSelectedStudyId(studyId) {
     this.store$.dispatch(StudyActions.SetSelectedStudyId({ payload: { studyId } }));
   }
+
+  exportProtocolCSV() {
+    this.store$.dispatch(StudyActions.ExportStudyProtocolStart());
+  }
+
+  exportCSV() {
+    this.store$.dispatch(StudyActions.ExportStudyStart());
+  }
 }

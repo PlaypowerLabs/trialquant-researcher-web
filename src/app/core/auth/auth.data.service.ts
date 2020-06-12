@@ -46,10 +46,6 @@ export class AuthDataService {
   ): Promise<any> {
     try {
       await this.fireAuth.setPersistence(auth.Auth.Persistence.LOCAL);
-      // const userDoc = await this.firestore.collection('researchers', ref =>
-      //   ref.where('email', '==', email)
-      // ).get().toPromise();
-
       return await this.fireAuth.signInWithEmailAndPassword(email, password);
     } catch (e) {
       throw new Error(e);
