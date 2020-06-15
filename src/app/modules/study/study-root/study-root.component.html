@@ -12,20 +12,21 @@
           <span nz-typography class="study-name-label">{{ selectedStudyDoc?.name }}</span>
         </div>
       </div>
-      <!-- <div nz-row>
-        <div nz-col [nzSpan]="24" class="study-status-container center-align-flex">
-          <span class="study-status-label">{{ 'On-going' }}</span>
-          <span class="study-status-label-seperator">{{ ' | ' }}</span>
-          <span class="study-remaining-time-label">{{ '19 days left' }}</span>
-        </div>
-      </div> -->
       <div nz-row>
         <div nz-col [nzSpan]="24" class="export-button-container center-align-flex">
-          <button class="export-csv-button flex-button" (click)="exportCSV()">
+          <button nz-button
+            nzType="primary"
+            class="export-csv-button flex-button"
+            (click)="exportCSV()"
+            [nzLoading]="isExportingTrialLogCSV$ | async">
             <i nz-icon class="icon" nzType="export" nzTheme="outline"></i>
             <span class="export-csv-label">{{ 'Export CSV' }}</span>
           </button>
-          <button class="export-protocol-button flex-button" (click)="exportStudyProtocol()">
+          <button nz-button
+            nzType="primary"
+            class="export-protocol-button flex-button"
+            (click)="exportStudyProtocol()"
+            [nzLoading]="isExportingStudyProtocolCSV$ | async">
             <i nz-icon class="icon" nzType="eye" nzTheme="outline"></i>
             <span class="export-protocol-label">{{ 'Export Study Protocol' }}</span>
           </button>

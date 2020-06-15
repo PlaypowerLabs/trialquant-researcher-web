@@ -37,3 +37,13 @@ export const selectSelectedStudyDoc = createSelector(
     return allStudy.find(study => study.id === selectedStudyId);
   }
 );
+
+export const selectIsExportingTrialLogCSV = createSelector(
+  selectStudyState,
+  state => state.isExportingTrialLogCSV
+);
+
+export const selectIsExportingStudyProtocolCSV = createSelector(
+  selectStudyState,
+  state => state.isExportingStudyProtocolCSV
+);

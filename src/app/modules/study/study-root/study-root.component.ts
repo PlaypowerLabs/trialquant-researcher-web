@@ -23,6 +23,9 @@ export class StudyRootComponent implements OnInit, OnDestroy {
   isLoadingStudyProgress$ = this.studyProgressService.isLoadingStudyProgress$;
   selectedStudyDoc$ = this.studyService.selectedStudyDoc$;
 
+  isExportingTrialLogCSV$ = this.studyService.isExportingTrialLogCSV$;
+  isExportingStudyProtocolCSV$ = this.studyService.isExportingStudyProtocolCSV$;
+
   ngOnInit(): void {
     this.sub = this.studyProgress$.subscribe(data => {
       console.log('Study Progress :', data);

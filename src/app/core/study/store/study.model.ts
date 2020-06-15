@@ -47,6 +47,8 @@ export enum StudyStatus {
 export interface StudyState extends EntityState<Study> {
   isLoadingStudies: boolean;
   selectedStudyId: string;
+  isExportingTrialLogCSV?: boolean;
+  isExportingStudyProtocolCSV?: boolean;
 }
 
 export interface State extends AppState {

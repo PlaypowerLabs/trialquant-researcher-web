@@ -111,7 +111,9 @@ export class StudyEffects {
             console.log('DataBlob :', dataBlob);
             const blob = new Blob([dataBlob], { type: 'text/csv' });
             saveAs(blob, 'study_trailLogs_' + studyDoc.id + '.csv');
-            return [StudyActions.ExportStudySuccess()];
+            return [
+              StudyActions.ExportStudySuccess()
+            ];
           }),
           catchError((error) => {
             console.log('ERROR :', error);

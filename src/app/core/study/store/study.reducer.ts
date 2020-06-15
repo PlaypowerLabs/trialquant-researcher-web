@@ -38,7 +38,33 @@ const reducer = createReducer(
     (state, { payload: { studyId } }) => {
       return { ...state, selectedStudyId: studyId };
     }
-  )
+  ),
+  on(
+    StudyActions.ExportStudyStart,
+    (state) => {
+      return { ...state, isExportingTrialLogCSV: true };
+    }
+  ),
+  on(
+    StudyActions.ExportStudySuccess,
+    StudyActions.ExportStudyFailed,
+    (state) => {
+      return { ...state, isExportingTrialLogCSV: false };
+    }
+  ),
+  on(
+    StudyActions.ExportStudyProtocolStart,
+    (state) => {
+      return { ...state, isExportingStudyProtocolCSV: true };
+    }
+  ),
+  on(
+    StudyActions.ExportStudyProtocolFailed,
+    StudyActions.ExportStudyProtocolSuccess,
+    (state) => {
+      return { ...state, isExportingStudyProtocolCSV: false };
+    }
+  ),
 );
 
 export function studyReducer(state: StudyState | undefined, action: Action): StudyState {
