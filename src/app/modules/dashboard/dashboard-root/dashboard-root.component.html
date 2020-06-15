@@ -22,25 +22,30 @@
       </div>
       <div nz-col [nzSpan]="18" class="dashboard-container">
         <div *ngIf="!(isLoadingStudies$ | async); else: loadingTemplate">
-          <div nz-row [nzGutter]="[16, 16]" *ngIf="(allStudies$ | async) as studies;">
-            <div nz-col [nzSpan]="12" *ngFor="let study of studies">
-              <div class="study-container" (click)="navigateToStudyPage(study.id)">
-                <div class="study-info-container">
-                  <span class="study-name">{{ study.name }}</span>
-                  <!-- <div class="study-duration-container">
-                    <span>{{ 'On-going' }}</span>
-                    <span>{{ '|' }}</span>
-                    <span>{{ '5 days left' }}</span>
-                  </div> -->
-                </div>
-                <div class="study-user-count">
-                  <i nz-icon nzType="team" nzTheme="outline"></i>
-                  <!-- TODO: Update this study completed count with actual count -->
-                  <span class="sub-count">{{ study.completedCount || 0 }}</span><span
-                    class="total-count">/{{ study.participantsInfo.length }}</span>
+          <div *ngIf="(allStudies$ | async) as studies">
+            <div nz-row [nzGutter]="[16, 16]" *ngIf="studies.length > 0; else: zeoStudiesTemplate">
+              <div nz-col [nzSpan]="12" *ngFor="let study of studies">
+                <div class="study-container" (click)="navigateToStudyPage(study.id)">
+                  <div class="study-info-container">
+                    <span class="study-name">{{ study.name }}</span>
+                    <!-- <div class="study-duration-container">
+                      <span>{{ 'On-going' }}</span>
+                      <span>{{ '|' }}</span>
+                      <span>{{ '5 days left' }}</span>
+                    </div> -->
+                  </div>
+                  <div class="study-user-count">
+                    <i nz-icon nzType="team" nzTheme="outline"></i>
+                    <!-- TODO: Update this study completed count with actual count -->
+                    <span class="sub-count">{{ study.completedCount || 0 }}</span><span
+                      class="total-count">/{{ study.participantsInfo.length }}</span>
+                  </div>
                 </div>
               </div>
             </div>
+            <ng-template #zeoStudiesTemplate>
+              <span class="zero-studies-message-label">{{ 'No studies found for current user.' }}</span>
+            </ng-template>
           </div>
         </div>
         <ng-template #loadingTemplate>

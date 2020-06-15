@@ -28,7 +28,9 @@ export class StudyEffects {
     tap(() => this.store$.dispatch(StudyActions.LoadStudiesStart())),
     switchMap((researcherId) => {
       return this.studyDataService.fetchProtocolsIds(researcherId).pipe(
-        filter(protocolIds => !!protocolIds && protocolIds.length > 0),
+        filter(protocolIds => {
+          return !!protocolIds;
+        }),
         switchMap((protocolIds) => {
           return this.studyDataService.fetchStudies(protocolIds).pipe(
             switchMap((studyArray: Study[]) => {
