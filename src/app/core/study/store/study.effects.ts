@@ -5,7 +5,7 @@ import { Actions, Effect, createEffect, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
 import { StudyDataService } from '../study.data.service';
 import { selectUserId } from '../../auth/store/auth.selectors';
-import { filter, switchMap, map, tap, withLatestFrom, catchError } from 'rxjs/operators';
+import { filter, switchMap, map, tap, withLatestFrom, catchError, mergeMap } from 'rxjs/operators';
 import { Study } from './study.model';
 import * as StudyActions from './study.actions';
 import { selectStudyIdFromRouterState, selectSelectedStudyDoc } from './study.selectors';
@@ -73,7 +73,7 @@ export class StudyEffects {
             const protocolDoc = protocolDocData.data();
             return this.studyDataService.getProtocolCSVDownloadURL(protocolDoc.protocolCSVRef).pipe(
               switchMap((url) => {
-                saveAs(url, 'protocol_' + protocolDoc.id);
+                saveAs(url, 'protocol_' + protocolDoc.id + '.csv');
                 return [
                   StudyActions.ExportStudyProtocolSuccess()
                 ];
@@ -107,11 +107,14 @@ export class StudyEffects {
       withLatestFrom(this.store$.pipe(select(selectSelectedStudyDoc))),
       switchMap(([, studyDoc]) => {
         return this.studyDataService.downloadStudyTrialLogsCSV(studyDoc.id).pipe(
-          switchMap((result) => {
-            console.log('Result :', result);
+          mergeMap((dataBlob) => {
+            console.log('DataBlob :', dataBlob);
+            const blob = new Blob([dataBlob], { type: 'text/csv' });
+            saveAs(blob, 'study_trailLogs_' + studyDoc.id + '.csv');
             return [StudyActions.ExportStudySuccess()];
           }),
           catchError((error) => {
+            console.log('ERROR :', error);
             return [
               StudyActions.ExportStudyFailed(error.message)
             ];

@@ -7,6 +7,7 @@ import { of, Observable, from, throwError } from 'rxjs';
 import { Study, Protocol } from './store/study.model';
 import * as StudyActions from './store/study.actions';
 import { fetch } from 'node-fetch';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class StudyDataService {
@@ -14,6 +15,7 @@ export class StudyDataService {
   constructor(
     private fireAuth: AngularFireAuth,
     private firestore: AngularFirestore,
+    private http: HttpClient,
     private storage: AngularFireStorage,
   ) { }
 
@@ -61,23 +63,19 @@ export class StudyDataService {
   }
 
   downloadStudyTrialLogsCSV(studyId: string) {
-    const downloadTrailLogsPromise = fetch(
-      'https://us-central1-ppl-trialquant.cloudfunctions.net/exportTrialLogs',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
-        },
-        body: JSON.stringify({
-          studyId
-        })
-      });
-    return from(downloadTrailLogsPromise).pipe(
-      catchError((error) => {
-        return throwError(error.message);
-      })
-    );
+    const exportTrialLogsURL = 'https://us-central1-ppl-trialquant.cloudfunctions.net/exportTrialLogs';
+    // TODO: Update this later
+    const body = {
+      participantId: '1266'
+    };
+    const headerOption = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: 'text/csv'
+      }),
+      responseType: 'blob' as 'json'
+    };
+    return this.http.post<Blob>(exportTrialLogsURL, JSON.stringify(body), headerOption);
   }
 
   downloadFromURL(url: string) {
