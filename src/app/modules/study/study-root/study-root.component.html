@@ -1,0 +1,74 @@
+<div class="study-page-container">
+  <div nz-row>
+    <div nz-col [nzSpan]="24" class="back-link-container">
+      <button class="back-to-home-button" (click)="navigateToHomepage()">
+        <i nz-icon class="back-icon" nzType="arrow-left" nzTheme="outline"></i>
+        <span class="back-icon-label">{{ 'Back to homepage' }}</span>
+      </button>
+    </div>
+    <div nz-col [nzSpan]="24" class="study-header-container" *ngIf="(selectedStudyDoc$ | async) as selectedStudyDoc">
+      <div nz-row>
+        <div nz-col [nzSpan]="24" class="study-name-container center-align-flex">
+          <span nz-typography class="study-name-label">{{ selectedStudyDoc?.name }}</span>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col [nzSpan]="24" class="export-button-container center-align-flex">
+          <button nz-button
+            nzType="primary"
+            class="export-csv-button flex-button"
+            (click)="exportCSV()"
+            [nzLoading]="isExportingTrialLogCSV$ | async">
+            <i nz-icon class="icon" nzType="export" nzTheme="outline"></i>
+            <span class="export-csv-label">{{ 'Export CSV' }}</span>
+          </button>
+          <button nz-button
+            nzType="primary"
+            class="export-protocol-button flex-button"
+            (click)="exportStudyProtocol()"
+            [nzLoading]="isExportingStudyProtocolCSV$ | async">
+            <i nz-icon class="icon" nzType="eye" nzTheme="outline"></i>
+            <span class="export-protocol-label">{{ 'Export Study Protocol' }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div nz-row class="study-data-container">
+    <div nz-col [nzSpan]="24">
+      <div *ngIf="!(isLoadingStudyProgress$ | async) else: loadingTemplate">
+        <nz-table
+          #studyProgressTable
+          nzBordered
+          class="study-progress-table"
+          [nzData]="studyProgressData"
+          [nzShowPagination]="false"
+          [nzFrontPagination]="false"
+          *ngIf="(studyProgress$ | async) as studyProgressData"
+          [nzScroll]="{ x: '1150px', y: '400px' }">
+          <thead>
+            <tr>
+              <th nzWidth="300px" nzLeft>{{ 'UserId' }}</th>
+              <th nzWidth="130px" *ngFor="let index of sessionIndexArray$ | async">{{ 'Session ' + index }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of studyProgressTable.data">
+              <td nzWidth="300px" nzLeft>{{ data.participantId }}</td>
+              <td nzWidth="130px" *ngFor="let activity of data?.activityProgress" [ngClass]="{
+                'colored-cell-green': (activity.isCompleted && activity.isAttempted),
+                'colored-cell-yellow': (!activity.isCompleted && activity.isAttempted),
+                'colored-cell-red': (!activity.isCompleted && !activity.isAttempted)
+              }">{{ '' }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+      <ng-template #loadingTemplate>
+        <div class="spin-container">
+          <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

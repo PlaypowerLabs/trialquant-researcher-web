@@ -14,9 +14,22 @@ import { HttpClientModule } from '@angular/common/http';
 registerLocaleData(en);
 
 @NgModule({
-	declarations: [AppComponent],
-	imports: [BrowserModule, CoreModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule],
-	providers: [{ provide: NZ_I18N, useValue: en_US }],
-	bootstrap: [AppComponent],
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    CoreModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule
+  ],
+  providers: [{
+    provide: NZ_I18N,
+    useValue: en_US
+  }],
+  bootstrap: [
+    AppComponent
+  ],
 })
-export class AppModule {}
+export class AppModule { }

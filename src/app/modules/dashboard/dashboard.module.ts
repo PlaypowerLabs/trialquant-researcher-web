@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { HomeComponent } from './pages/home/home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-
+import { DashboardRootComponent } from './dashboard-root/dashboard-root.component';
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [
+    DashboardRootComponent
+  ],
   imports: [
     CommonModule,
     DashboardRoutingModule,

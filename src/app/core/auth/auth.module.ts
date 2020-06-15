@@ -7,8 +7,6 @@ import { authReducer } from './store/auth.reducer';
 import { AuthService } from './auth.service';
 import { AuthDataService } from './auth.data.service';
 
-
-
 @NgModule({
   declarations: [],
   imports: [
@@ -16,6 +14,9 @@ import { AuthDataService } from './auth.data.service';
     EffectsModule.forFeature([AuthEffects]),
     StoreModule.forFeature('auth', authReducer)
   ],
-  providers: [AuthService, AuthDataService]
+  providers: [
+    AuthService,
+    AuthDataService
+  ]
 })
 export class AuthModule { }
